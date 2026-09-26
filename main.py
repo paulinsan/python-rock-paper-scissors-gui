@@ -158,6 +158,10 @@ def jogar(b):
         opcoes = ["Pedra", "Papel", "Tesoura"]
         computador = random.choice(opcoes)
         voce = b
+
+        app_text['text'] = computador
+        app_text["fg"] = co1
+
     # --- caso seja igual ---
         if voce == computador:
                 print("Empate")
@@ -208,6 +212,10 @@ def jogar(b):
 
     
     else:
+        jogador1_pontos['text'] = pnt_voce
+        jogador2_pontos['text'] = pnt_computador
+
+        # Chamando a função para o fim do jogo
         fim_do_jogo()
 
 
@@ -219,6 +227,8 @@ def iniciar_jogo():
     global b_icon_1
     global b_icon_2
     global b_icon_3
+
+    b_jogar.destroy()
 
 # --- botão pedra --- (=== configuração do "frame_baixo" ===)
     icon_1 = Image.open("imagens/pedra.png")
@@ -278,7 +288,58 @@ def iniciar_jogo():
 # --- finalizar jogo --- (=== funções ===)
 
 def fim_do_jogo():
-    print("Jogo terminou! ")
+    global rodadas
+    global pnt_voce
+    global pnt_computador
+
+    # reinicia a pontuação 
+    pnt_voce = 0
+    pnt_computador = 0
+    rodadas = 5
+
+    # oculta os botões de opções
+    b_icon_1.destroy()
+    b_icon_2.destroy()
+    b_icon_3.destroy()
+
+    # mostra o vencedor
+    jogador1 = int(jogador1_pontos["text"])
+    jogador2 = int(jogador2_pontos["text"])
+
+    if jogador1 > jogador2:
+          inf_vencedor = Label(
+                frame_baixo,
+                text="Voce ganhou!",
+                height=1,
+                anchor="center",
+                font=("Ivy 25 bold"),
+                bg=co0,
+                fg=co4
+          )
+          inf_vencedor.place(x=40, y=60)
+    elif jogador2 > jogador1:
+           inf_vencedor = Label(
+                 frame_baixo,
+                 text="Voce perdeu!",
+                 height=1,
+                 anchor="center",
+                 font=("Ivy 25 bold"),
+                 bg=co0,
+                 fg=co5
+           )
+           inf_vencedor.place(x=40, y=625)
+    else:
+          inf_vencedor = Label(
+                frame_baixo,
+                text="Este jogo empatou!",
+                height=1,
+                anchor="center",
+                font=("Ivy 25 bold"),
+                bg=co0,
+                fg=co2
+          )
+          inf_vencedor.place(x=20, y=60)
+      
 
 
 # === configuração do "frame_baixo" ===
@@ -293,7 +354,19 @@ b_jogar = Button(
     anchor=CENTER,
     relief=FLAT
 )
-b_jogar.place(x=75, y=295)
+b_jogar.place(x=75, y=270)
+
+# --- escolha da rodada ---
+app_text = Label(
+      frame_baixo,
+      text="",
+      height=1,
+      anchor="center",
+      font=("Ivy 10 bold"),
+      bg=co0,
+      fg=co1
+)
+app_text.place(x=210, y=12)
 
 
 janela.mainloop()
