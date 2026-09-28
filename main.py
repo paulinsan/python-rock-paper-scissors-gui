@@ -338,8 +338,33 @@ def fim_do_jogo():
                 bg=co0,
                 fg=co2
           )
-          inf_vencedor.place(x=20, y=60)
+          inf_vencedor.place(x=15, y=60)
       
+    # --- jogar novamente --- (=== funções ===)
+    def jogar_dnv():
+        jogador1_pontos["text"] = "0"
+        jogador2_pontos["text"] = "0"
+
+        inf_vencedor.destroy()
+
+        b_jogar_dnv.destroy()
+
+        iniciar_jogo()
+
+
+    b_jogar_dnv = Button(
+        command=jogar_dnv,
+        width=20,
+        text="Jogar denovo",
+        bg=fundo,
+        fg=co0,
+        font=('Ivy 10 bold'),
+        anchor=CENTER,
+        relief=FLAT
+    )
+    b_jogar_dnv.place(x=75, y=270)   
+
+
 
 
 # === configuração do "frame_baixo" ===
