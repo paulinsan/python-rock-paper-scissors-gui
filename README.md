@@ -1,116 +1,139 @@
-# 🖥️ Python Rock Paper Scissors GUI
+# ✂️ Pedra, Papel ou Tesoura — GUI
 
-Versão com **interface gráfica** do projeto Pedra, Papel e Tesoura, desenvolvida em **Python utilizando Tkinter**.
+**Status do projeto:** 🟡 **Em desenvolvimento**
 
-> 🚧 **Status: Em desenvolvimento**
+## 📖 Sobre o projeto
 
-Este projeto representa uma evolução da versão executada pelo terminal, adicionando uma interface gráfica para tornar o jogo mais visual e interativo.
+Este projeto consiste em uma versão gráfica do clássico jogo **Pedra, Papel ou Tesoura**, desenvolvido em Python utilizando a biblioteca Tkinter.
 
-## 📌 Sobre o projeto
+O objetivo é praticar conceitos de programação, organização de código, criação de interfaces gráficas e separação de responsabilidades entre arquivos.
 
-A aplicação permite que o jogador escolha entre:
+O projeto está sendo reorganizado para tornar o código mais legível, modular e fácil de manter.
 
-* ⛰️ Pedra
-* 📄 Papel
-* ✂️ Tesoura
+## 🎮 Funcionalidades
 
-Após a escolha do jogador, o computador realiza uma escolha aleatória e o resultado da rodada é apresentado na interface gráfica.
-
-O projeto está sendo desenvolvido gradualmente, conforme novos conceitos de Python e interfaces gráficas são estudados.
+- Interface gráfica desenvolvida com Tkinter.
+- Botões com imagens para representar Pedra, Papel e Tesoura.
+- Escolha aleatória do computador.
+- Sistema de partidas com 5 rodadas.
+- Placar para o jogador e o computador.
+- Sistema de pontuação, com 10 pontos por vitória.
+- Contabilização de empates.
+- Indicação visual do resultado de cada rodada.
+- Exibição da escolha do computador.
+- Identificação do vencedor da partida.
+- Opção para reiniciar o jogo e zerar o placar.
 
 ## 🛠️ Tecnologias utilizadas
 
-* 🐍 Python
-* 🖥️ Tkinter
-* 🖼️ Pillow
-* 🎲 Random
+- **Python:** linguagem de programação.
+- **Tkinter:** criação da interface gráfica.
+- **Pillow:** carregamento e redimensionamento das imagens.
+- **Git e GitHub:** versionamento e armazenamento do projeto.
 
-### Bibliotecas utilizadas
-
-```python
-import random
-import tkinter
-from PIL import Image, ImageTk
-```
-
-## 🎯 Funcionalidades planejadas
-
-O projeto está sendo desenvolvido para incluir:
-
-* ⛰️ Botão para escolher Pedra
-* 📄 Botão para escolher Papel
-* ✂️ Botão para escolher Tesoura
-* 🎲 Escolha aleatória do computador
-* 🏆 Sistema de pontuação
-* 🔄 Possibilidade de iniciar uma nova partida
-* 🖼️ Imagens para representar as opções
-* 📊 Exibição do resultado das rodadas
-* 🖥️ Interface gráfica utilizando Tkinter
-
-## 🧠 Conceitos praticados
-
-Durante o desenvolvimento, estão sendo trabalhados conceitos como:
-
-* Variáveis
-* Listas
-* Dicionários
-* Condicionais
-* Funções
-* Eventos
-* Entrada de dados
-* Geração de valores aleatórios
-* Interfaces gráficas
-* Widgets do Tkinter
-* Manipulação de imagens
-* Organização de arquivos
-
-## 📂 Estrutura planejada
-
-A estrutura poderá ser modificada conforme o projeto evoluir.
+## 📂 Estrutura de arquivos
 
 ```text
-python-rock-paper-scissors-gui/
+pedra-papel-tesoura-gui/
+│
+├── main.py
+├── jogo.py
+├── interface.py
 │
 ├── imagens/
 │   ├── pedra.png
 │   ├── papel.png
 │   └── tesoura.png
 │
-├── main.py
-│
-└── README.md
+├── README.md
+└── requirements.txt
 ```
 
-## 🚧 Desenvolvimento
+### 📄 Responsabilidade dos arquivos
 
-O projeto ainda está em desenvolvimento.
+| Arquivo | Descrição |
+|---|---|
+| `main.py` | Inicializa a aplicação e abre a janela principal. |
+| `jogo.py` | Contém as regras, a escolha do computador e o gerenciamento do placar. |
+| `interface.py` | Organiza a janela, os botões, as imagens, as mensagens e os elementos visuais. |
+| `imagens/` | Armazena as imagens utilizadas nos botões do jogo. |
+| `requirements.txt` | Lista as dependências externas necessárias para executar o projeto. |
 
-### Próximos passos
+## ⚙️ Como executar o projeto
 
-* [ ] Finalizar a interface gráfica
-* [ ] Integrar todas as opções do jogo
-* [ ] Finalizar o sistema de pontuação
-* [ ] Melhorar o layout
-* [ ] Adicionar novas imagens
-* [ ] Melhorar a experiência do usuário
-* [ ] Refatorar e organizar o código
-* [ ] Realizar testes
-* [ ] Documentar a versão final
+### 1. Pré-requisitos
 
-## 🔗 Projeto relacionado
+Certifique-se de ter o Python instalado no computador.
 
-Este projeto é uma evolução da versão executada pelo terminal:
+### 2. Clone o repositório
 
-**Python Rock Paper Scissors**
+```bash
+git clone URL_DO_SEU_REPOSITORIO
+```
 
-A versão gráfica utiliza os conhecimentos desenvolvidos anteriormente e adiciona novos conceitos relacionados ao desenvolvimento de interfaces com Tkinter.
+Substitua `URL_DO_SEU_REPOSITORIO` pelo endereço real do repositório no GitHub.
 
-## 📚 Objetivo de aprendizado
+### 3. Entre na pasta do projeto
 
-O principal objetivo é praticar **Python, lógica de programação e desenvolvimento de interfaces gráficas**, transformando um projeto inicialmente executado no terminal em uma aplicação visual.
+```bash
+cd pedra-papel-tesoura-gui
+```
 
-Este projeto faz parte da minha evolução durante os estudos de **Análise e Desenvolvimento de Sistemas**.
+### 4. Instale as dependências
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+### 5. Execute o jogo
+
+```bash
+python main.py
+```
+
+## 📌 Regras do jogo
+
+- O jogador escolhe entre Pedra, Papel e Tesoura.
+- O computador realiza uma escolha aleatória.
+- Pedra vence Tesoura.
+- Tesoura vence Papel.
+- Papel vence Pedra.
+- Escolhas iguais resultam em empate.
+- Cada vitória vale 10 pontos.
+- Os empates são contabilizados separadamente e não adicionam pontos.
+- A partida termina após 5 rodadas.
+- Ao final, o jogo informa se o jogador venceu, perdeu ou empatou.
+- É possível iniciar uma nova partida e zerar a pontuação.
+
+## 📚 Conceitos praticados
+
+- Variáveis e estruturas de dados.
+- Dicionários para armazenar o placar.
+- Funções e métodos.
+- Condicionais (`if`, `elif` e `else`).
+- Listas e escolha aleatória com `random`.
+- Programação orientada a objetos com classes.
+- Organização de código em módulos.
+- Importação de funções e classes entre arquivos.
+- Criação e manipulação de widgets com Tkinter.
+- Manipulação de imagens com Pillow.
+- Atualização dinâmica de elementos da interface.
+
+## 🚧 Melhorias futuras
+
+- [ ] Revisar e testar todas as funcionalidades após a reorganização dos arquivos.
+- [ ] Melhorar o layout e a experiência visual da interface.
+- [ ] Implementar tratamento de erros para arquivos de imagem ausentes.
+- [ ] Melhorar as mensagens e os indicadores de resultado.
+- [ ] Revisar a organização e a legibilidade do código.
+- [ ] Realizar testes da lógica de vitória, derrota e empate.
+
+## 👨‍💻 Autor
+
+**Paulo Henrique dos Santos**
+
+Projeto desenvolvido com fins educacionais durante meus estudos de programação e desenvolvimento de software.
 
 ---
 
-**Projeto em desenvolvimento por Paulo Santos.**
+*Este projeto continua em desenvolvimento e poderá receber novas funcionalidades, correções e melhorias conforme minha evolução nos estudos.*
