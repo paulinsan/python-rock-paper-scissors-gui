@@ -124,7 +124,9 @@ class InterfaceJogo:
             bg=COR_BRANCO,
             width=2
         )
-        self.lbl_linha_jogador.place(x=0, y=0, width=5, height=120)
+        self.lbl_linha_jogador.place(
+            x=0, y=0, width=5, height=130
+        )
 
         self.lbl_linha_computador = tk.Label(
             self.frame_cima,
@@ -132,12 +134,12 @@ class InterfaceJogo:
             width=2
         )
         self.lbl_linha_computador.place(
-            x=315, y=0, width=5, height=120
+            x=315, y=0, width=5, height=130
         )
 
         self.lbl_linha_inferior = tk.Label(
             self.frame_cima,
-            bg=COR_LARANJA
+            bg=COR_BRANCO
         )
         self.lbl_linha_inferior.place(
             x=0, y=125, width=320, height=5
@@ -170,7 +172,7 @@ class InterfaceJogo:
             self.frame_baixo,
             bg=COR_BRANCO
         )
-        self.frame_botoes.place(x=15, y=85)
+        self.frame_botoes.place(x=28, y=85)
 
         self.botoes_opcoes = []
 
@@ -307,6 +309,9 @@ class InterfaceJogo:
             mensagem = "A partida terminou empatada!"
             cor = COR_LARANJA
 
+        # Atualiza a cor da barra do placar
+        self.lbl_linha_inferior.config(bg=cor)
+
         self.lbl_mensagem.config(
             text=mensagem,
             fg=cor
@@ -317,7 +322,7 @@ class InterfaceJogo:
         )
 
         self.btn_reiniciar.place(
-            x=55, y=230
+            x=75, y=227
         )
 
     # === REINICIAR PARTIDA ===
@@ -342,6 +347,7 @@ class InterfaceJogo:
 
         self.lbl_linha_jogador.config(bg=COR_BRANCO)
         self.lbl_linha_computador.config(bg=COR_BRANCO)
+        self.lbl_linha_inferior.config(bg=COR_BRANCO)
 
         for botao in self.botoes_opcoes:
             botao.config(state=tk.NORMAL)
