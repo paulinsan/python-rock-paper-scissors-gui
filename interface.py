@@ -1,3 +1,4 @@
+
 import tkinter as tk
 from pathlib import Path
 from PIL import Image, ImageTk
@@ -11,14 +12,31 @@ from jogo import (
 )
 
 
-# === CORES ===
+# === PALETA DE CORES ===
 
-COR_BRANCO = "#FFFFFF"
-COR_PRETO = "#333333"
-COR_LARANJA = "#FCC058"
-COR_VERDE = "#34EB3D"
-COR_VERMELHO = "#E85151"
-COR_FUNDO = "#3B3B3B"
+COR_FUNDO = "#0B1120"
+COR_PAINEL = "#151F35"
+
+COR_BOTAO = "#2563EB"
+COR_DESTAQUE = "#60A5FA"
+
+COR_BRANCO = "#F8FAFC"
+COR_TEXTO_SECUNDARIO = "#94A3B8"
+
+COR_VERDE = "#22C55E"
+COR_VERMELHO = "#EF4444"
+COR_LARANJA = "#F59E0B"
+
+
+# === FONTES ===
+
+FONTE_PADRAO = "Segoe UI"
+
+FONTE_PLACAR = (FONTE_PADRAO, 32, "bold")
+FONTE_DOIS_PONTOS = (FONTE_PADRAO, 28, "bold")
+FONTE_TEXTO = (FONTE_PADRAO, 10)
+FONTE_BOTAO = (FONTE_PADRAO, 10, "bold")
+FONTE_RESULTADO = (FONTE_PADRAO, 11, "bold")
 
 
 # === CONFIGURAÇÕES ===
@@ -42,7 +60,7 @@ class InterfaceJogo:
         self.placar = criar_placar()
         self.rodadas_restantes = TOTAL_RODADAS
 
-        # Guarda as imagens para que não sejam removidas da memória
+        # Guarda as imagens na memória
         self.imagens = {}
 
         # Cria as áreas da interface
@@ -57,7 +75,7 @@ class InterfaceJogo:
             self.janela,
             width=320,
             height=130,
-            bg=COR_PRETO
+            bg=COR_PAINEL
         )
         self.frame_cima.pack()
 
@@ -65,11 +83,11 @@ class InterfaceJogo:
             self.janela,
             width=320,
             height=290,
-            bg=COR_BRANCO
+            bg=COR_PAINEL
         )
         self.frame_baixo.pack()
 
-        # Impede que os frames mudem de tamanho
+        # Mantém as dimensões definidas dos frames
         self.frame_cima.pack_propagate(False)
         self.frame_baixo.pack_propagate(False)
 
@@ -79,8 +97,8 @@ class InterfaceJogo:
         self.lbl_pontos_jogador = tk.Label(
             self.frame_cima,
             text="0",
-            font=("Arial", 32, "bold"),
-            bg=COR_PRETO,
+            font=FONTE_PLACAR,
+            bg=COR_PAINEL,
             fg=COR_BRANCO
         )
         self.lbl_pontos_jogador.place(x=65, y=25)
@@ -88,17 +106,17 @@ class InterfaceJogo:
         self.lbl_dois_pontos = tk.Label(
             self.frame_cima,
             text=":",
-            font=("Arial", 28, "bold"),
-            bg=COR_PRETO,
-            fg=COR_BRANCO
+            font=FONTE_DOIS_PONTOS,
+            bg=COR_PAINEL,
+            fg=COR_DESTAQUE
         )
         self.lbl_dois_pontos.place(x=150, y=30)
 
         self.lbl_pontos_computador = tk.Label(
             self.frame_cima,
             text="0",
-            font=("Arial", 32, "bold"),
-            bg=COR_PRETO,
+            font=FONTE_PLACAR,
+            bg=COR_PAINEL,
             fg=COR_BRANCO
         )
         self.lbl_pontos_computador.place(x=215, y=25)
@@ -106,22 +124,23 @@ class InterfaceJogo:
         tk.Label(
             self.frame_cima,
             text="Você",
-            font=("Arial", 10, "bold"),
-            bg=COR_PRETO,
-            fg=COR_BRANCO
+            font=FONTE_TEXTO + ("bold",),
+            bg=COR_PAINEL,
+            fg=COR_TEXTO_SECUNDARIO
         ).place(x=75, y=85)
 
         tk.Label(
             self.frame_cima,
             text="Computador",
-            font=("Arial", 10, "bold"),
-            bg=COR_PRETO,
-            fg=COR_BRANCO
+            font=FONTE_TEXTO + ("bold",),
+            bg=COR_PAINEL,
+            fg=COR_TEXTO_SECUNDARIO
         ).place(x=190, y=85)
 
+        # Linhas laterais do placar
         self.lbl_linha_jogador = tk.Label(
             self.frame_cima,
-            bg=COR_BRANCO,
+            bg=COR_DESTAQUE,
             width=2
         )
         self.lbl_linha_jogador.place(
@@ -130,16 +149,17 @@ class InterfaceJogo:
 
         self.lbl_linha_computador = tk.Label(
             self.frame_cima,
-            bg=COR_BRANCO,
+            bg=COR_DESTAQUE,
             width=2
         )
         self.lbl_linha_computador.place(
             x=315, y=0, width=5, height=130
         )
 
+        # Barra inferior: muda de cor ao final da partida
         self.lbl_linha_inferior = tk.Label(
             self.frame_cima,
-            bg=COR_BRANCO
+            bg=COR_DESTAQUE
         )
         self.lbl_linha_inferior.place(
             x=0, y=125, width=320, height=5
@@ -151,26 +171,29 @@ class InterfaceJogo:
         self.lbl_mensagem = tk.Label(
             self.frame_baixo,
             text="Escolha sua jogada!",
-            font=("Arial", 11, "bold"),
-            bg=COR_BRANCO,
-            fg=COR_PRETO
+            font=FONTE_RESULTADO,
+            bg=COR_PAINEL,
+            fg=COR_BRANCO
         )
-        self.lbl_mensagem.place(x=0, y=15, width=320)
+        self.lbl_mensagem.place(
+            x=0, y=15, width=320
+        )
 
         self.lbl_escolha_computador = tk.Label(
             self.frame_baixo,
             text="",
-            font=("Arial", 10),
-            bg=COR_BRANCO,
-            fg=COR_PRETO
+            font=FONTE_TEXTO,
+            bg=COR_PAINEL,
+            fg=COR_TEXTO_SECUNDARIO
         )
         self.lbl_escolha_computador.place(
             x=0, y=42, width=320
         )
 
+        # Área dos botões de escolha
         self.frame_botoes = tk.Frame(
             self.frame_baixo,
-            bg=COR_BRANCO
+            bg=COR_PAINEL
         )
         self.frame_botoes.place(x=28, y=85)
 
@@ -180,6 +203,7 @@ class InterfaceJogo:
             imagem = Image.open(
                 PASTA_IMAGENS / f"{opcao.lower()}.png"
             )
+
             imagem = imagem.resize(
                 (70, 70),
                 Image.Resampling.LANCZOS
@@ -191,10 +215,12 @@ class InterfaceJogo:
                 self.frame_botoes,
                 image=self.imagens[opcao],
                 command=lambda escolha=opcao: self.jogar(escolha),
-                bg=COR_BRANCO,
-                activebackground=COR_BRANCO,
+                bg=COR_PAINEL,
+                activebackground=COR_PAINEL,
                 relief=tk.FLAT,
-                cursor="hand2"
+                cursor="hand2",
+                borderwidth=0,
+                highlightthickness=0
             )
             botao.grid(
                 row=0,
@@ -207,9 +233,9 @@ class InterfaceJogo:
         self.lbl_rodadas = tk.Label(
             self.frame_baixo,
             text=f"Rodadas restantes: {self.rodadas_restantes}",
-            font=("Arial", 10),
-            bg=COR_BRANCO,
-            fg=COR_PRETO
+            font=FONTE_TEXTO,
+            bg=COR_PAINEL,
+            fg=COR_TEXTO_SECUNDARIO
         )
         self.lbl_rodadas.place(
             x=0, y=175, width=320
@@ -220,9 +246,11 @@ class InterfaceJogo:
             text="Jogar novamente",
             command=self.reiniciar_jogo,
             width=20,
-            bg=COR_FUNDO,
+            bg=COR_BOTAO,
             fg=COR_BRANCO,
-            font=("Arial", 10, "bold"),
+            activebackground=COR_DESTAQUE,
+            activeforeground=COR_FUNDO,
+            font=FONTE_BOTAO,
             relief=tk.FLAT,
             cursor="hand2"
         )
@@ -243,7 +271,7 @@ class InterfaceJogo:
         atualizar_placar(self.placar, resultado)
         self.rodadas_restantes -= 1
 
-        # Atualiza as informações da tela
+        # Atualiza o placar
         self.lbl_pontos_jogador.config(
             text=self.placar["jogador"]
         )
@@ -251,6 +279,7 @@ class InterfaceJogo:
             text=self.placar["computador"]
         )
 
+        # Mostra a escolha do computador
         self.lbl_escolha_computador.config(
             text=f"Computador escolheu: {escolha_computador}"
         )
@@ -261,15 +290,15 @@ class InterfaceJogo:
 
         self.atualizar_resultado_visual(resultado)
 
+        # Encerra automaticamente após a última rodada
         if self.rodadas_restantes == 0:
             self.finalizar_jogo()
 
     # === RESULTADO VISUAL DA RODADA ===
 
     def atualizar_resultado_visual(self, resultado):
-        # Reseta as cores antes de mostrar o novo resultado
-        self.lbl_linha_jogador.config(bg=COR_BRANCO)
-        self.lbl_linha_computador.config(bg=COR_BRANCO)
+        self.lbl_linha_jogador.config(bg=COR_DESTAQUE)
+        self.lbl_linha_computador.config(bg=COR_DESTAQUE)
 
         if resultado == "jogador":
             self.lbl_mensagem.config(
@@ -283,7 +312,7 @@ class InterfaceJogo:
                 text="Você perdeu a rodada!",
                 fg=COR_VERMELHO
             )
-            self.lbl_linha_computador.config(bg=COR_VERDE)
+            self.lbl_linha_computador.config(bg=COR_VERMELHO)
 
         else:
             self.lbl_mensagem.config(
@@ -309,7 +338,7 @@ class InterfaceJogo:
             mensagem = "A partida terminou empatada!"
             cor = COR_LARANJA
 
-        # Atualiza a cor da barra do placar
+        # Atualiza a barra inferior conforme o resultado final
         self.lbl_linha_inferior.config(bg=cor)
 
         self.lbl_mensagem.config(
@@ -336,7 +365,7 @@ class InterfaceJogo:
 
         self.lbl_mensagem.config(
             text="Escolha sua jogada!",
-            fg=COR_PRETO
+            fg=COR_BRANCO
         )
 
         self.lbl_escolha_computador.config(text="")
@@ -345,9 +374,10 @@ class InterfaceJogo:
             text=f"Rodadas restantes: {self.rodadas_restantes}"
         )
 
-        self.lbl_linha_jogador.config(bg=COR_BRANCO)
-        self.lbl_linha_computador.config(bg=COR_BRANCO)
-        self.lbl_linha_inferior.config(bg=COR_BRANCO)
+        # Restaura as cores neutras
+        self.lbl_linha_jogador.config(bg=COR_DESTAQUE)
+        self.lbl_linha_computador.config(bg=COR_DESTAQUE)
+        self.lbl_linha_inferior.config(bg=COR_DESTAQUE)
 
         for botao in self.botoes_opcoes:
             botao.config(state=tk.NORMAL)
