@@ -354,16 +354,57 @@ class InterfaceJogo:
 
             self.botoes_opcoes.append(botao)
 
-        self.lbl_rodadas = tk.Label(
+        # Contador de rodadas
+            self.lbl_rodadas = tk.Label(
+                self.frame_baixo,
+                text=f"Rodadas: 0 de {TOTAL_RODADAS} rodadas",
+                font=FONTE_TEXTO,
+                bg=COR_PAINEL,
+                fg=COR_TEXTO_SECUNDARIO
+            )
+
+            self.lbl_rodadas.place(
+                x=0,
+                y=150,
+                width=320
+            )
+
+        # Indicadores de rodadas
+        self.frame_rodadas = tk.Frame(
             self.frame_baixo,
-            text=f"Rodadas restantes: {self.rodadas_restantes}",
-            font=FONTE_TEXTO,
-            bg=COR_PAINEL,
-            fg=COR_TEXTO_SECUNDARIO
+            bg=COR_PAINEL
         )
-        self.lbl_rodadas.place(
-            x=0, y=175, width=320
+
+        self.frame_rodadas.place(
+            x=0,
+            y=175,
+            width=320,
+            height=20
         )
+
+        self.indicadores_rodadas = []
+
+        for i in range(TOTAL_RODADAS):
+            indicador = tk.Canvas(
+                self.frame_rodadas,
+                bg=COR_PAINEL,
+                width=38,
+                height=10,
+                highlightthickness=0,
+                borderwidth=0
+            )
+
+            indicador.create_oval(
+                0, 0, 38, 10,
+                fill=COR_PAINEL,
+                outline=COR_PAINEL
+            )
+
+            indicador.pack(side="left", padx=4)
+
+            self.indicadores_rodadas.append(indicador)
+
+        self.atualizar_indicadores_rodadas()
 
         self.btn_reiniciar = tk.Button(
             self.frame_baixo,
@@ -379,6 +420,28 @@ class InterfaceJogo:
             cursor="hand2"
         )
 
+
+    def atualizar_indicadores_rodadas(self):
+        rodadas_jogadas = TOTAL_RODADAS - self.rodadas_restantes
+
+        # Atualiza o texto
+        self.lbl_rodadas.config(
+            text=f"Rodadas: {rodadas_jogadas} de {TOTAL_RODADAS} rodadas"
+        )
+
+        # Atualiza as barras
+        for i, indicador in enumerate(self.indicadores_rodadas):
+            if i < rodadas_jogadas:
+                cor = COR_BOTAO
+            else:
+                cor = COR_PAINEL
+
+            indicador.itemconfig(
+                1,
+                fill=cor,
+                outline=cor
+            )
+
     # === EXECUTAR UMA RODADA ===
 
     def jogar(self, escolha_jogador):
@@ -392,13 +455,17 @@ class InterfaceJogo:
             escolha_computador
         )
 
+        # Atualiza o placar e as rodadas
         atualizar_placar(self.placar, resultado)
         self.rodadas_restantes -= 1
 
-        # Atualiza o placar
+        self.atualizar_indicadores_rodadas()
+
+        # Atualiza o placar visual
         self.lbl_pontos_jogador.config(
             text=self.placar["jogador"]
         )
+
         self.lbl_pontos_computador.config(
             text=self.placar["computador"]
         )
@@ -419,12 +486,9 @@ class InterfaceJogo:
         # Mostra a escolha do computador
         self.lbl_escolha_computador.config(
             text=f"Computador escolheu: {escolha_computador}"
-        )
+    )
 
-        self.lbl_rodadas.config(
-            text=f"Rodadas restantes: {self.rodadas_restantes}"
-        )
-
+        # Atualiza a mensagem e os indicadores visuais
         self.atualizar_resultado_visual(resultado)
 
         # Encerra automaticamente após a última rodada
@@ -506,10 +570,6 @@ class InterfaceJogo:
             fg=cor
         )
 
-        self.lbl_rodadas.config(
-            text="Partida finalizada!"
-        )
-
         self.btn_reiniciar.place(
             x=75, y=227
         )
@@ -530,10 +590,6 @@ class InterfaceJogo:
 
         self.lbl_escolha_computador.config(text="")
 
-        self.lbl_rodadas.config(
-            text=f"Rodadas restantes: {self.rodadas_restantes}"
-        )
-
         # Restaura as cores neutras
         self.lbl_linha_jogador.config(bg=COR_DESTAQUE)
         self.lbl_linha_computador.config(bg=COR_DESTAQUE)
@@ -543,3 +599,4 @@ class InterfaceJogo:
             botao.config(state=tk.NORMAL)
 
         self.btn_reiniciar.place_forget()
+        self.atualizar_indicadores_rodadas()
