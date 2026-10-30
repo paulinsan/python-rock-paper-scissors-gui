@@ -1,13 +1,10 @@
 import random
 
-
 OPCOES = ["Pedra", "Papel", "Tesoura"]
-
 
 def escolher_computador():
     """Retorna uma escolha aleatória para o computador."""
     return random.choice(OPCOES)
-
 
 def verificar_vencedor(jogador, computador):
     """Compara as escolhas e retorna o resultado da rodada."""
@@ -27,7 +24,6 @@ def verificar_vencedor(jogador, computador):
     else:
         return "computador"
 
-
 def criar_placar():
     """Cria e retorna um placar zerado."""
     return {
@@ -36,7 +32,6 @@ def criar_placar():
         "empates": 0,
         "rodadas": 0
     }
-
 
 def atualizar_placar(placar, resultado):
     """Atualiza o placar de acordo com o resultado da rodada."""

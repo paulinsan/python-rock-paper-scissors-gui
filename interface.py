@@ -37,6 +37,32 @@ MENSAGENS_EMPATE = [
     "Tudo igual por aqui!"
 ]
 
+# === MENSAGENS FINAIS ===
+
+MENSAGENS_VITORIA_FINAL = [
+    "CAMPEÃO! Você dominou essa partida!",
+    "INCRÍVEL! A vitória é sua!",
+    "PARABÉNS! Você venceu o computador!",
+    "QUE DESEMPENHO! Você levou a melhor!",
+    "VITÓRIA! Hoje o computador não teve chance!"
+]
+
+MENSAGENS_DERROTA_FINAL = [
+    "FIM DE JOGO! O computador levou a melhor!",
+    "Dessa vez o computador venceu!",
+    "Não desanime! A revanche está logo ali!",
+    "O computador foi melhor nesta partida!",
+    "Quase lá! Tente novamente!"
+]
+
+MENSAGENS_EMPATE_FINAL = [
+    "QUE DISPUTA! Ninguém levou a melhor!",
+    "Empate! Vocês estão no mesmo nível!",
+    "Uma partida equilibrada até o final!",
+    "Ninguém venceu, mas foi uma boa disputa!",
+    "DEU EMPATE! Que tal uma revanche?"
+]
+
 # === PALETA DE CORES ===
 
 COR_FUNDO = "#0B1120"
@@ -85,6 +111,16 @@ class InterfaceJogo:
         self.placar = criar_placar()
         self.rodadas_restantes = TOTAL_RODADAS
 
+        # Guarda a última mensagem exibida por resultado
+        self.mensagens_anteriores = {
+            "jogador": None,
+            "computador": None,
+            "empate": None,
+            "final_jogador": None,
+            "final_computador": None,
+            "final_empate": None
+        }
+
         # Guarda as imagens na memória
         self.imagens = {}
 
@@ -92,6 +128,23 @@ class InterfaceJogo:
         self.criar_frames()
         self.criar_placar()
         self.criar_area_jogo()
+
+    def sortear_mensagem(self, mensagens, resultado):
+        ultima_mensagem = self.mensagens_anteriores[resultado]
+
+        # Remove a última mensagem da lista de opções
+        opcoes = [
+            mensagem
+            for mensagem in mensagens
+            if mensagem != ultima_mensagem
+        ]
+
+        mensagem = random.choice(opcoes)
+
+        # Guarda a mensagem escolhida
+        self.mensagens_anteriores[resultado] = mensagem
+
+        return mensagem
 
     # === ESTRUTURA DA JANELA ===
 
@@ -326,7 +379,9 @@ class InterfaceJogo:
         self.lbl_linha_computador.config(bg=COR_DESTAQUE)
 
         if resultado == "jogador":
-            mensagem = random.choice(MENSAGENS_VITORIA)
+            mensagem = self.sortear_mensagem(
+                MENSAGENS_VITORIA, "jogador"
+            )
 
             self.lbl_mensagem.config(
                 text=mensagem,
@@ -336,7 +391,9 @@ class InterfaceJogo:
             self.lbl_linha_jogador.config(bg=COR_VERDE)
 
         elif resultado == "computador":
-            mensagem = random.choice(MENSAGENS_DERROTA)
+            mensagem = self.sortear_mensagem(
+                MENSAGENS_DERROTA, "computador"
+            )
 
             self.lbl_mensagem.config(
                 text=mensagem,
@@ -346,7 +403,9 @@ class InterfaceJogo:
             self.lbl_linha_computador.config(bg=COR_VERMELHO)
 
         else:
-            mensagem = random.choice(MENSAGENS_EMPATE)
+            mensagem = self.sortear_mensagem(
+                MENSAGENS_EMPATE, "empate"
+            )
 
             self.lbl_mensagem.config(
                 text=mensagem,
@@ -360,18 +419,27 @@ class InterfaceJogo:
             botao.config(state=tk.DISABLED)
 
         if self.placar["jogador"] > self.placar["computador"]:
-            mensagem = "Você ganhou a partida!"
+            mensagem = self.sortear_mensagem(
+                MENSAGENS_VITORIA_FINAL,
+                "final_jogador"
+            )
             cor = COR_VERDE
 
         elif self.placar["jogador"] < self.placar["computador"]:
-            mensagem = "Você perdeu a partida!"
+            mensagem = self.sortear_mensagem(
+                MENSAGENS_DERROTA_FINAL,
+                "final_computador"
+            )
             cor = COR_VERMELHO
 
         else:
-            mensagem = "A partida terminou empatada!"
+            mensagem = self.sortear_mensagem(
+                MENSAGENS_EMPATE_FINAL,
+                "final_empate"
+            )
             cor = COR_LARANJA
 
-        # Atualiza a barra inferior conforme o resultado final
+        # Atualiza a barra inferior
         self.lbl_linha_inferior.config(bg=cor)
 
         self.lbl_mensagem.config(
