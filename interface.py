@@ -121,6 +121,12 @@ class InterfaceJogo:
             "final_empate": None
         }
 
+        # Controle das animações do placar
+        self.animacoes_placar = {
+            "jogador": None,
+            "computador": None
+        }
+
         # Guarda as imagens na memória
         self.imagens = {}
 
@@ -243,6 +249,46 @@ class InterfaceJogo:
             x=0, y=125, width=320, height=5
         )
 
+    def animar_placar(self, label, jogador):
+        # Cancela uma animação anterior do mesmo placar
+        animacao_anterior = self.animacoes_placar[jogador]
+
+        if animacao_anterior is not None:
+            self.janela.after_cancel(animacao_anterior)
+
+        cor = COR_VERDE if jogador == "jogador" else COR_VERMELHO
+
+        # Primeira etapa: aumenta o número
+        label.config(
+            font=(FONTE_PADRAO, 40, "bold"),
+            fg=cor
+        )
+
+        # Segunda etapa: reduz o tamanho
+        def segunda_etapa():
+            label.config(
+                font=(FONTE_PADRAO, 36, "bold")
+            )
+
+            self.animacoes_placar[jogador] = self.janela.after(
+                140,
+                finalizar_animacao
+            )
+
+        # Terceira etapa: retorna ao normal
+        def finalizar_animacao():
+            label.config(
+                font=FONTE_PLACAR,
+                fg=COR_BRANCO
+            )
+
+            self.animacoes_placar[jogador] = None
+
+        self.animacoes_placar[jogador] = self.janela.after(
+            120,
+            segunda_etapa
+        )
+
     # === ÁREA PRINCIPAL ===
 
     def criar_area_jogo(self):
@@ -356,6 +402,19 @@ class InterfaceJogo:
         self.lbl_pontos_computador.config(
             text=self.placar["computador"]
         )
+
+        # Anima o placar de quem venceu a rodada
+        if resultado == "jogador":
+            self.animar_placar(
+                self.lbl_pontos_jogador,
+                "jogador"
+            )
+
+        elif resultado == "computador":
+            self.animar_placar(
+                self.lbl_pontos_computador,
+                "computador"
+            )
 
         # Mostra a escolha do computador
         self.lbl_escolha_computador.config(
