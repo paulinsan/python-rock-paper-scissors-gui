@@ -1,4 +1,4 @@
-
+import random
 import tkinter as tk
 from pathlib import Path
 from PIL import Image, ImageTk
@@ -11,6 +11,31 @@ from jogo import (
     atualizar_placar
 )
 
+# === MENSAGENS DOS RESULTADOS ===
+
+MENSAGENS_VITORIA = [
+    "Mandou bem! Você venceu!",
+    "Boa jogada! Ponto para você!",
+    "Excelente! Você levou essa!",
+    "É isso aí! Mais uma vitória!",
+    "Você está jogando muito!"
+]
+
+MENSAGENS_DERROTA = [
+    "Dessa vez não! O computador venceu.",
+    "O computador levou essa!",
+    "Quase lá! Tente novamente.",
+    "Essa rodada foi do computador!",
+    "Não foi dessa vez!"
+]
+
+MENSAGENS_EMPATE = [
+    "Foi por pouco! Deu empate.",
+    "Ninguém levou vantagem!",
+    "Vocês pensaram igual!",
+    "Uma rodada equilibrada!",
+    "Tudo igual por aqui!"
+]
 
 # === PALETA DE CORES ===
 
@@ -301,22 +326,30 @@ class InterfaceJogo:
         self.lbl_linha_computador.config(bg=COR_DESTAQUE)
 
         if resultado == "jogador":
+            mensagem = random.choice(MENSAGENS_VITORIA)
+
             self.lbl_mensagem.config(
-                text="Você venceu a rodada!",
+                text=mensagem,
                 fg=COR_VERDE
             )
+
             self.lbl_linha_jogador.config(bg=COR_VERDE)
 
         elif resultado == "computador":
+            mensagem = random.choice(MENSAGENS_DERROTA)
+
             self.lbl_mensagem.config(
-                text="Você perdeu a rodada!",
+                text=mensagem,
                 fg=COR_VERMELHO
             )
+
             self.lbl_linha_computador.config(bg=COR_VERMELHO)
 
         else:
+            mensagem = random.choice(MENSAGENS_EMPATE)
+
             self.lbl_mensagem.config(
-                text="A rodada terminou empatada!",
+                text=mensagem,
                 fg=COR_LARANJA
             )
 
