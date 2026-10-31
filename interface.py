@@ -77,7 +77,7 @@ COR_TEXTO_SECUNDARIO = "#94A3B8"
 COR_VERDE = "#22C55E"
 COR_VERMELHO = "#EF4444"
 COR_LARANJA = "#F59E0B"
-
+COR_AMARELO = "#FFD94D"
 
 # === FONTES ===
 
@@ -376,8 +376,8 @@ class InterfaceJogo:
         )
 
         self.frame_rodadas.place(
-            x=0,
-            y=175,
+            x=45,
+            y=185,
             width=320,
             height=20
         )
@@ -388,14 +388,14 @@ class InterfaceJogo:
             indicador = tk.Canvas(
                 self.frame_rodadas,
                 bg=COR_PAINEL,
-                width=38,
+                width=40,
                 height=10,
                 highlightthickness=0,
                 borderwidth=0
             )
 
             indicador.create_oval(
-                0, 0, 38, 10,
+                0, 0, 36, 10,
                 fill=COR_PAINEL,
                 outline=COR_PAINEL
             )
@@ -432,7 +432,7 @@ class InterfaceJogo:
         # Atualiza as barras
         for i, indicador in enumerate(self.indicadores_rodadas):
             if i < rodadas_jogadas:
-                cor = COR_BOTAO
+                cor = COR_AMARELO
             else:
                 cor = COR_PAINEL
 
