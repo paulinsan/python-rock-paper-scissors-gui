@@ -433,13 +433,16 @@ class InterfaceJogo:
         for i, indicador in enumerate(self.indicadores_rodadas):
             if i < rodadas_jogadas:
                 cor = COR_AMARELO
+                borda = COR_AMARELO
             else:
                 cor = COR_PAINEL
+                borda = COR_BRANCO
 
             indicador.itemconfig(
                 1,
                 fill=cor,
-                outline=cor
+                outline=borda,
+                width=1
             )
 
     # === EXECUTAR UMA RODADA ===
