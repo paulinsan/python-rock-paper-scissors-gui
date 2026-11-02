@@ -388,16 +388,18 @@ class InterfaceJogo:
             indicador = tk.Canvas(
                 self.frame_rodadas,
                 bg=COR_PAINEL,
-                width=40,
-                height=10,
+                width=35,
+                height=13,
                 highlightthickness=0,
                 borderwidth=0
             )
 
-            indicador.create_oval(
-                0, 0, 36, 10,
-                fill=COR_PAINEL,
-                outline=COR_PAINEL
+            self.criar_retangulo_arredondado(
+                indicador,
+                largura=35,
+                altura=13,
+                raio=3,
+                cor=COR_PAINEL
             )
 
             indicador.pack(side="left", padx=4)
@@ -420,6 +422,20 @@ class InterfaceJogo:
             cursor="hand2"
         )
 
+    def criar_retangulo_arredondado(self, canvas, largura, altura, raio, cor):
+        canvas.create_polygon(
+            raio, 0,
+            largura - raio, 0,
+            largura, raio,
+            largura, altura - raio,
+            largura - raio, altura,
+            raio, altura,
+            0, altura - raio,
+            0, raio,
+            smooth=True,
+            fill=cor,
+            outline=cor
+        )
 
     def atualizar_indicadores_rodadas(self):
         rodadas_jogadas = TOTAL_RODADAS - self.rodadas_restantes
