@@ -360,12 +360,12 @@ class InterfaceJogo:
                 text=f"Rodadas: 0 de {TOTAL_RODADAS} rodadas",
                 font=FONTE_TEXTO,
                 bg=COR_PAINEL,
-                fg=COR_TEXTO_SECUNDARIO
+                fg=COR_BRANCO
             )
 
             self.lbl_rodadas.place(
                 x=0,
-                y=150,
+                y=160,
                 width=320
             )
 
