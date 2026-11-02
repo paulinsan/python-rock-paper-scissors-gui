@@ -388,7 +388,7 @@ class InterfaceJogo:
             indicador = tk.Canvas(
                 self.frame_rodadas,
                 bg=COR_PAINEL,
-                width=35,
+                width=37,
                 height=13,
                 highlightthickness=0,
                 borderwidth=0
@@ -396,7 +396,7 @@ class InterfaceJogo:
 
             self.criar_retangulo_arredondado(
                 indicador,
-                largura=35,
+                largura=37,
                 altura=13,
                 raio=3,
                 cor=COR_PAINEL
