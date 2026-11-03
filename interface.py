@@ -410,9 +410,9 @@ class InterfaceJogo:
 
         self.btn_reiniciar = tk.Button(
             self.frame_baixo,
-            text="Jogar novamente",
+            text="JOGAR NOVAMENTE",
             command=self.reiniciar_jogo,
-            width=20,
+            width=21,
             bg=COR_BOTAO,
             fg=COR_BRANCO,
             activebackground=COR_DESTAQUE,
